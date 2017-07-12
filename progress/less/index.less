@@ -1,0 +1,105 @@
+
+@g-progress-color:#ff8800;
+
+.pointPosition(@counter;@percent) when (@counter > 0 ) {
+   .g-progress-stage@{counter} {
+       left:@percent * (@counter - 1);
+   }
+    .pointPosition(( @counter - 1 ),@percent);// 递归调用自身
+}
+
+.progressLine(@percent){
+    @keyframes progressLine
+    {
+        from {width:0;}
+        to {width:@percent;}
+    }
+    @-moz-keyframes progressLine
+    {
+        from {width:0;}
+        to {width:@percent;}
+    }
+    @-webkit-keyframes progressLine
+    {
+        from {width:0;}
+        to {width:@percent;}
+    }
+    @-o-keyframes progressLine
+    {
+        from {width:0;}
+        to {width:@percent;}
+    }
+}
+
+//@item 步骤数;@color:@g-progress-color 进度调等背景颜色 @ponit-width 点区域的宽 ;@cir 圆点的大小
+//@position:  激活位置
+.progress(@item:4;@position:3;@color:@g-progress-color;@ponit-width:200px;@cir:32px;) {
+    @percent:(100% / (@item - 1));
+    .g-progress{
+        &-point{
+            width: @ponit-width;
+            position: absolute;
+            left:0;
+            margin-left: -(@ponit-width / 2);
+            text-align: center;
+        }
+        &-cir{
+            width: @cir;
+            height: @cir;
+            display: inline-block;
+            background-image: url('../images/i-sche-def.png');
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            border-radius: 50%;
+            position: absolute;
+            margin-top:-(@cir / 2);
+            margin-left:-(@cir / 2);
+        }
+        &-on{
+            .g-progress-cir{
+                background-image: url('../images/i-sche-on.png');
+            }
+        }
+        &-show{
+            .g-progress-cir{
+                background-image: url('../images/i_show.gif');
+            }
+        }
+        &-detail{
+            margin-top: 10px;
+        }
+
+        &-perent{
+            width: (@position - 1) * @percent;
+            height: 2px;
+            position: absolute;
+            left: 0;
+            top:0;
+            background-color: @color;
+            animation:progressLine .5s 0s 1  linear;
+            -moz-animation:progressLine .5s 0s 1  linear; /* Firefox */
+            -webkit-animation:progressLine .5s 0s 1  linear; /* Safari and Chrome */
+            -o-animation:progressLine .5s 0s 1  linear; /* Opera */
+        }
+
+    }
+    .pointPosition(@item,@percent);
+    .progressLine((@position - 1) * @percent);
+
+    .setposition(@i;@p) when (@p > @i){
+
+        .g-progress-perent{
+            width: (@i - 1) * @percent;
+        }
+        .progressLine((@i - 1) * @percent);
+    }
+    .setposition(@item;@position);
+}
+.g{
+    &-progress-box{
+        position: relative;
+        width: 100%;
+        height: 2px;
+        background-color: #e6e6e6;
+    }
+}
