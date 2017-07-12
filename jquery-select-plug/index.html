@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery input下拉菜单选中效果</title>
+	<link rel="stylesheet" href="./index.css">
+	<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+</head>
+
+<body>
+<div class="nav" id="nav" role='select' name='ss'>
+	<ul class="new">
+		<li value="0" >电影</li>
+		<li value="1" >游戏</li>
+		<li value="2" select>阅读</li>
+		<li value="3">KTV</li>
+		<li value="4">旅游</li>
+		<li value="5">运动</li>
+		<li value="6">宅</li>
+		<li value="7">娱乐</li>
+		<li value="8">新闻</li>
+		<li value="9">广告</li>
+	</ul>
+</div>
+
+<div class="nav" role='select' id="nav1" name='' style="margin-top:300px">
+	<ul class="new">
+		<li value="0" select>电影0</li>
+		<li value="1">游戏1</li>
+		<li value="2">阅读2</li>
+		<li value="3" select>KTV3</li>
+		<li value="4">旅游4</li>
+		<li value="5">运动5</li>
+		<li value="6">宅6</li>
+		<li value="7">娱乐7</li>
+		<li value="8">新闻8</li>
+		<li value="9">广告9</li>
+	</ul>
+</div>
+
+<button>tiit</button>
+
+<script type="text/javascript" src="./index.js"></script>
+<script type="text/javascript">
+	(function(){
+		var nn = YSelect('#nav',{
+			css:{},
+			optionH:36, //option 高
+			optionW:0, //没有设置
+
+		});
+		var n1 = YSelect('#nav1');
+
+		$('button').click(()=>{
+			console.log(nn.getValue());
+		})
+
+	})()
+</script>
+
+</body>
+</html>
