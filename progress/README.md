@@ -1,9 +1,9 @@
 ### progress
 最近做了一个简单的LESS动态添加流出步骤进度条
 
-| 属性 | 注释 | 默认值 |
-|-|-|
-| on | 激活状态，在active状态的之前的状态| g-progress-on |
+| 属性     | 注释 | 默认值 |
+|---------|------|-------|
+| on  | 激活状态，在active状态的之前的状态| g-progress-on |
 | active | 被激活的状态 动态的git状态 | g-progress-active |
 |color| 颜色 | #ff8800 |
 | position| 可以设置激活的位置，如果设置这个值会首先执行 | 1 |
