@@ -1,38 +1,7 @@
 
 @g-progress-color:#ff8800;
 
-.pointPosition(@counter;@percent) when (@counter > 0 ) {
-   .g-progress-stage@{counter} {
-       left:@percent * (@counter - 1);
-   }
-    .pointPosition(( @counter - 1 ),@percent);// 递归调用自身
-}
-
-// .progressLine(@percent){
-//     @keyframes progressLine
-//     {
-//         from {width:0;}
-//         to {width:@percent;}
-//     }
-//     @-moz-keyframes progressLine
-//     {
-//         from {width:0;}
-//         to {width:@percent;}
-//     }
-//     @-webkit-keyframes progressLine
-//     {
-//         from {width:0;}
-//         to {width:@percent;}
-//     }
-//     @-o-keyframes progressLine
-//     {
-//         from {width:0;}
-//         to {width:@percent;}
-//     }
-// }
-
-//@item 步骤数;@color:@g-progress-color 进度调等背景颜色 @ponit-width 点区域的宽 ;@cir 圆点的大小
-//@position:  激活位置
+//@color:@g-progress-color 进度调等背景颜色 @ponit-width 点区域的宽 ;@cir 圆点的大小
 .progress(@color:@g-progress-color;@ponit-width:200px;@cir:32px;) {
     .g-progress{
         &-point{

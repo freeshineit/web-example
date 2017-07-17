@@ -28,7 +28,7 @@ example
                 <h4>待推送</h4>
             </div>
         </div>
-        <div class="g-progress-point g-progress-stage3">
+        <div class="g-progress-point g-progress-stage3 g-progress-active">
             <span class="g-progress-cir"></span>
             <div class="g-progress-detail">
                 <h4>待推送</h4>

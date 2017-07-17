@@ -19,7 +19,9 @@
             var _this = this;
                 targets = _this.$element.find('.'+_this.options.targets),
                 activeP = _this.options.position || $('.'+ _this.options.active).prevAll().length;  //激活位置
-                percent = (((activeP - 1) / (targets.length - 1)) * 100);
+
+                percent = (( 100 / (targets.length - 1)));
+
             var tag = $('<div class="g-progress-percent" style="position:absolute;top:0px;left:0px;width:0;height:'+_this.options.tagH+'px;background-color:'+_this.options.color+'"></div>');
             var $targets = $('.'+_this.options.targets);
 
