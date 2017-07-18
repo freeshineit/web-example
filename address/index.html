@@ -11,9 +11,13 @@
     <button>地址</button>
     <input type="checkbox" name="1" checked/>
 <script type="text/javascript" src='./js/jquery.1.11.3.js'></script>
+<script type="text/javascript" src='./js/region.js'></script>
 <script src='./index.js'></script>
+
 <script type="text/javascript">
-    $('button').address();
+    $('button').address({
+        data:provinceList
+    });
 </script>
 </body>
 </html>

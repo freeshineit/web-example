@@ -19,70 +19,66 @@
                 _this = this,
                 id = (target.attr('id')+'_'+ Math.random()).replace('.', '_');
                 html = _this.getHtml(target);
-                optionBox = $("<div style='position: absolute; top: 0px; left: 0px; width: 100%;'> <div class='select_option option_component option_box_"+ id +"' style='display:none'>"+html+"</div></div>");
+                optionBox = $("<div style='position: absolute; top: 0px; left: 0px; width: 100%;'> <div id='option_box_"+ id +"' class='select_option option_component option_box_"+ id +"' style='display:none'>"+html+"</div></div>");
                 placeholder = target.attr('placeholder') || ''; //默认值
-
-            var option = null,
                 arrow = null,
                 options = optionBox.find('li'),
                 optionHeight = 36, //每个option的高度
                 lineHeight = target.height(); //行高
-
-            defaultValue = placeholder;
-            value = '';
+                defaultValue = placeholder || '',
+                value = '',
+                option = $('<input readonly style="border:0;outline:none;margin:0;padding:0;line-height:'+ lineHeight+'px;height:'+  lineHeight +'px;padding-left: 10px;padding-right:23px;overflow: hidden" class="option_component_value" id="' + id + '" value="' + value + '" data-value="'+ defaultValue +'">'),
+                arrow = $('<span class="logo_component logo_arr" style="background:url('+ _this.options.arrow +');width:11px;height:6px;background-repeat:no-repeat;margin-top: -20px;float: right;margin-right: 10px;"></span>');
 
             $.each(optionBox.find('li'), function(index, item) {
                 if ($(item).attr('select') !== undefined) {
-                    defaultValue = $(item).text();
-                    value = $(item).attr('value');
+                    value = $(item).text();
+                    defaultValue = $(item).attr('value');
                 }
             })
 
-            option = $('<input readonly style="border:0;outline:none;margin:0;padding:0;line-height:'+ lineHeight+'px;height:'+  lineHeight +'px;padding-left: 10px;padding-right:23px;overflow: hidden" class="option_component_value" id="' + id + '" value="' + value + '" defaultValue="'+ defaultValue +'">');
-            arrow = $('<span class="logo_component logo_arr" style="background:url('+ _this.options.arrow +');width:11px;height:6px;background-repeat:no-repeat;margin-top: -20px;float: right;margin-right: 10px;"></span>')
+            _this.setData(option,value,defaultValue); //初始化
+            option.css(_this.options.optionStyle);
+            target.prepend(arrow).prepend(option);
             $('body').append(optionBox);
 
-            //css
-            option.css(_this.options.optionStyle);
-
-            target.prepend(arrow).prepend(option);
-
-            $.each([arrow,option],function(index,item){
-                item.on('click', function(event) {
-                    var optionCom = optionBox.children('.option_component');
-                    var otherOptionBox = optionBox.siblings().find('.select_option.option_component') || [];
-                    var top = target.offset().top;
-                    var left = target.offset().left;
-                    optionCom.css({'top':(top + lineHeight + 5 )+'px','left':left +'px'})
-                    $.each(otherOptionBox, function(index, item) {
-                        $(item).hide();
-                    })
-
-                    _this.showPanel(optionCom)
-
-                    event.stopPropagation();
-
-                    $(document).on('click', function(event) {
-                        optionCom.hide();
-                        $(this).unbind('click')
-                        event.stopPropagation();
-                    })
-
-                    return false;
+            target.on('click', function(event) {
+                var id = 'option_box_' + $(this).find('input').attr('id');
+                    optionCom = $('.'+id);
+                    otherOptionBox = optionCom.siblings().find('.select_option.option_component') || [];
+                var top = $(this).offset().top,
+                    left = $(this).offset().left;
+                optionCom.css({'top':(top + lineHeight + 5 )+'px','left':left +'px'})
+                $.each(otherOptionBox, function(index, item) {
+                    $(item).hide();
                 })
+
+                _this.showPanel(optionCom)
+
+                event.stopPropagation();
+                $(document).on('click', function(event) {
+                    optionCom.hide();
+                    $(this).unbind('click')
+                    event.stopPropagation();
+                })
+
+                return false;
             })
+
 
             options.on('click', function(event) {
-                var $this = $(this)
+                var $this = $(this);
                 $this.closest('.select_option.option_component').hide();
                 $this.attr('select','select').siblings().removeAttr('select');
-                defaultValue = $this.text();
-                value = $this.attr('value');
-                option.attr('value', value).text(defaultValue);
-                event.stopPropagation();
+                defaultValue = $this.attr('value');
+                value = $this.text();
 
+                _this.setData(target.find('input'),value,defaultValue); //初始化
+
+                event.stopPropagation();
                 option.trigger('change');
             })
+
             return option
         },
         getHtml: function(ele){
@@ -90,8 +86,9 @@
             ele.html('');
             return _html;
         },
-        addEvent:function(){
-
+        setData: function(ele,value,defaultV){
+            ele.val(value).attr('data-value',defaultV);
+            return ele;
         },
         showPanel: function(ele){
             if (ele.css("display") == "none") {
